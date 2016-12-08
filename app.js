@@ -1,6 +1,7 @@
 // curl "localhost:3000/img" -X POST -F data=@test.jpg
 // http://localhost:3000/img/xxxxx
 
+const PORT = process.env.PORT || 3000;
 var TMPDIR = 'c:\\temp\\'
 var express = require('express');
 var ejs = require("ejs");
@@ -42,6 +43,6 @@ app.post('/img', upload.single('data'), function (req, res) {
     res.end('success');
 });
 
-var server = app.listen(3000, function(){
+var server = app.listen(PORT, function(){
     console.log('Server is running!');
 })
