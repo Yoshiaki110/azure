@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.get('/', function(req, res){
     res.render('test.ejs', 
         {title: 'Test Page' , 
-            content: 'this is test.13'});
+            content: 'this is test.14'});
 })
 app.get('/input', function(req, res){
     res.render('input.ejs');
@@ -32,9 +32,12 @@ app.post('/msg', function(req, res){
 
 app.get('/img/:fname', function(req, res){
     console.log(req.params.fname);
+    console.log(TMPDIR + req.params.fname);
     fs.readFile(TMPDIR + req.params.fname, function(err, data){
+        console.log('aaaa');
         res.set('Content-Type', 'image/jpeg');
         res.send(data);
+        console.log('bbbb');
     });
 });
 
