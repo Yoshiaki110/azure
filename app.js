@@ -2,8 +2,8 @@
 // https://linecars.azurewebsites.net/img/xxx
 // https://linecars.azurewebsites.net/inquiry
 
-const TMPDIR = 'c:\\temp\\'
-//const TMPDIR = 'D:\\home\\site\\wwwroot\\uploads\\'
+//const TMPDIR = 'c:\\temp\\'
+const TMPDIR = 'D:\\home\\site\\wwwroot\\uploads\\'
 const PORT = process.env.PORT || 3000;
 const express = require('express');
 const app = express();
@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.get('/', function(req, res){
     res.render('test.ejs', 
         {title: 'Test Page' , 
-            content: 'this is test.19'});
+            content: 'this is test.20'});
 })
 app.get('/inquiry', function (req, res) {
     res.send('Hello World!');
