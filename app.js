@@ -27,8 +27,9 @@ function chk(){
     }
 }
 
-app.post('/webhook', function(req, res, next){
+app.post('/webhook', function(req, res){
     console.log('<>post /webhook');
+    res.status(200).end();
 });
 
 app.get('/', function(req, res){
