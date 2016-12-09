@@ -10,6 +10,7 @@ const ejs = require("ejs");
 const multer  = require('multer');
 const upload = multer({ dest: TMPDIR });
 const fs = require('fs');
+const request = require('request');
 
 app.engine('ejs', ejs.renderFile);
 const bodyParser = require('body-parser')
@@ -18,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.get('/', function(req, res){
     res.render('test.ejs', 
         {title: 'Test Page' , 
-            content: 'this is test.16'});
+            content: 'this is test.18'});
 })
 app.get('/input', function(req, res){
     res.render('input.ejs');
@@ -33,10 +34,21 @@ app.get('/tc', function(req, res){
     res.render('tc.ejs');
 })
 app.post('/tc', function(req, res){
-    console.log(req.body);
-    res.render('test.ejs', 
-        {title: 'Trouble Code' , 
-            content: req.body.code});
+    console.log(req.body.code);
+    var options = {
+        url: 'http://mimamorikun.azure-mobile.net/tables/toyota_tc?$filter=(code%20eq%20%27' + req.body.code + '%27)',
+        json: true
+    };
+    request.get(options, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            console.log(body[0].eng);
+        } else {
+            console.log('error: '+ response.statusCode);
+        }
+        res.render('test.ejs', 
+            {title: 'Trouble Code : ' + req.body.code, 
+                content: body[0].eng});
+    })
 })
 
 app.get('/img/:fname', function(req, res){
