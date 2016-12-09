@@ -5,6 +5,8 @@ const app = express();
 var ejs = require("ejs");
 
 app.engine('ejs', ejs.renderFile);
+var bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({ extended: false }));
 
 
 //app.get('/', function(req, res) {
@@ -12,8 +14,11 @@ app.engine('ejs', ejs.renderFile);
 //});
 app.get('/', function(req, res){
     res.render('test.ejs', 
-        {title: 'Test Page4' , 
-            content: 'this is test.'});
+        {title: 'Test Page' , 
+            content: 'this is test.5'});
+})
+app.get('/input', function(req, res){
+    res.render('input.ejs');
 })
 
 //app.listen(PORT);
