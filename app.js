@@ -28,6 +28,7 @@ function chk(){
 }
 
 app.post('/webhook', function(req, res, next){
+    console.log('<>post /webhook');
     res.status(200).end();
     for (var event of req.body.events){
         console.log('event.type : ' + event.type);//ito
@@ -61,7 +62,7 @@ app.get('/', function(req, res){
     res.render('test.ejs', 
         {title: 'Test Page', 
          content1: 'this is test.',
-         content2: '23'});
+         content2: '24'});
 })
 app.get('/inquiry/:fname', function (req, res) {
     console.log('<>get /inquiry/:fname');
