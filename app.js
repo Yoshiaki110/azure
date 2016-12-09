@@ -28,8 +28,9 @@ function chk(){
 app.get('/', function(req, res){
     console.log('<>get /');
     res.render('test.ejs', 
-        {title: 'Test Page' , 
-            content: 'this is test.21'});
+        {title: 'Test Page', 
+         content1: 'this is test.',
+         content2: '23'});
 })
 app.get('/inquiry/:fname', function (req, res) {
     console.log('<>get /inquiry/:fname');
@@ -49,8 +50,9 @@ app.post('/msg', function(req, res){
     console.log('<>post /msg');
     console.log(req.body);
     res.render('test.ejs', 
-        {title: 'Message Send' , 
-            content: req.body.msg});
+        {title: 'Message Send', 
+         content1: req.body.id,
+         content2: req.body.msg});
 })
 app.get('/tc', function(req, res){
     console.log('<>get /tc');
@@ -70,8 +72,9 @@ app.post('/tc', function(req, res){
             console.log('error: '+ response.statusCode);
         }
         res.render('test.ejs', 
-            {title: 'Trouble Code : ' + req.body.code, 
-                content: body[0].eng});
+            {title: 'Trouble Code : ' + req.body.code,
+             content1: req.body.id,
+             content2: body[0].eng});
     })
 })
 
