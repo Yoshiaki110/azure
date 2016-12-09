@@ -8,7 +8,7 @@ const app = express();
 const ejs = require("ejs");
 const multer  = require('multer');
 const upload = multer({ dest: TMPDIR });
-const fs = require('fs');
+//const fs = require('fs');
 
 app.engine('ejs', ejs.renderFile);
 const bodyParser = require('body-parser')
@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.get('/', function(req, res){
     res.render('test.ejs', 
         {title: 'Test Page' , 
-            content: 'this is test.8'});
+            content: 'this is test.9'});
 })
 app.get('/input', function(req, res){
     res.render('input.ejs');
