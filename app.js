@@ -17,30 +17,47 @@ app.engine('ejs', ejs.renderFile);
 const bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({ extended: false }));
 
+var hash_list = new Array();
+function chk(){
+    console.log('chk()');
+    for(key in hash_list) {
+        console.log('  ' + key + ' ' + hash_list[key]);
+    }
+}
+
 app.get('/', function(req, res){
+    console.log('<>get /');
     res.render('test.ejs', 
         {title: 'Test Page' , 
-            content: 'this is test.20'});
+            content: 'this is test.21'});
 })
-app.get('/inquiry', function (req, res) {
-    res.send('Hello World!');
+app.get('/inquiry/:fname', function (req, res) {
+    console.log('<>get /inquiry/:fname');
+    chk();
+    console.log(req.params.fname);
+    res.send(hash_list[req.params.fname]);
 })
 app.get('/input', function(req, res){
+    console.log('<>get /input');
     res.render('input.ejs');
 })
 app.get('/select', function(req, res){
+    console.log('<>get /select');
     res.render('select.ejs');
 })
 app.post('/msg', function(req, res){
+    console.log('<>post /msg');
     console.log(req.body);
     res.render('test.ejs', 
         {title: 'Message Send' , 
             content: req.body.msg});
 })
 app.get('/tc', function(req, res){
+    console.log('<>get /tc');
     res.render('tc.ejs');
 })
 app.post('/tc', function(req, res){
+    console.log('<>post /tc');
     console.log(req.body.code);
     var options = {
         url: 'http://mimamorikun.azure-mobile.net/tables/toyota_tc?$filter=(code%20eq%20%27' + req.body.code + '%27)',
@@ -59,19 +76,22 @@ app.post('/tc', function(req, res){
 })
 
 app.get('/img/:fname', function(req, res){
+    console.log('<>get /img/:fname');
     console.log(req.params.fname);
     console.log(TMPDIR + req.params.fname);
     fs.readFile(TMPDIR + req.params.fname, function(err, data){
-        console.log('aaaa');
         res.set('Content-Type', 'image/jpeg');
         res.send(data);
-        console.log('bbbb');
     });
+    hash_list[req.params.fname]  = 'send';
 });
 app.post('/img', upload.single('data'), function (req, res) {
+    console.log('<>post /img');
     console.log(req.file);
 //    res.end('success');
     res.end(req.file.filename);
+    hash_list[req.file.filename]  = 'none';
+    chk();
 });
 
 var server = app.listen(PORT, function(){
