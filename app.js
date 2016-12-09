@@ -29,32 +29,6 @@ function chk(){
 
 app.post('/webhook', function(req, res, next){
     console.log('<>post /webhook');
-    res.status(200).end();
-    for (var event of req.body.events){
-        console.log('event.type : ' + event.type);//ito
-        console.log('event.source.type : ' + event.source.type);//ito
-        if (event.type == 'message' && event.message.text == 'ÉnÉçÅ['){
-            var headers = {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + LINE_CHANNEL_ACCESS_TOKEN
-            }
-            var body = {
-                replyToken: event.replyToken,
-                messages: [{
-                    type: 'text',
-                    text: 'Ç±ÇÒÇ…ÇøÇÕÅ['
-                }]
-            }
-            var url = 'https://api.line.me/v2/bot/message/reply';
-            request({
-                url: url,
-                method: 'POST',
-                headers: headers,
-                body: body,
-                json: true
-            });
-        }        
-    }
 });
 
 app.get('/', function(req, res){
@@ -62,7 +36,7 @@ app.get('/', function(req, res){
     res.render('test.ejs', 
         {title: 'Test Page', 
          content1: 'this is test.',
-         content2: '24'});
+         content2: '25'});
 })
 app.get('/inquiry/:fname', function (req, res) {
     console.log('<>get /inquiry/:fname');
