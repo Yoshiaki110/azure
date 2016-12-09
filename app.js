@@ -1,7 +1,7 @@
-// curl "localhost:3000/img" -X POST -F data=@test.jpg
-// http://localhost:3000/img/xxxxx
+// curl "https://linecars.azurewebsites.net/img" -X POST -F data=@test.jpg
+// https://linecars.azurewebsites.net/img/xxx
 
-//const TMPDIR = 'd:\\local\\temp\\'
+//const TMPDIR = 'c:\\temp\\'
 const TMPDIR = 'D:\\home\\site\\wwwroot\\uploads\\'
 const PORT = process.env.PORT || 3000;
 const express = require('express');
@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.get('/', function(req, res){
     res.render('test.ejs', 
         {title: 'Test Page' , 
-            content: 'this is test.15'});
+            content: 'this is test.16'});
 })
 app.get('/input', function(req, res){
     res.render('input.ejs');
@@ -28,6 +28,15 @@ app.post('/msg', function(req, res){
     res.render('test.ejs', 
         {title: 'Message Send' , 
             content: req.body.msg});
+})
+app.get('/tc', function(req, res){
+    res.render('tc.ejs');
+})
+app.post('/tc', function(req, res){
+    console.log(req.body);
+    res.render('test.ejs', 
+        {title: 'Trouble Code' , 
+            content: req.body.code});
 })
 
 app.get('/img/:fname', function(req, res){
@@ -40,7 +49,6 @@ app.get('/img/:fname', function(req, res){
         console.log('bbbb');
     });
 });
-
 app.post('/img', upload.single('data'), function (req, res) {
     console.log(req.file);
     res.end('success');
