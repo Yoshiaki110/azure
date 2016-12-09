@@ -1,8 +1,9 @@
 // curl "https://linecars.azurewebsites.net/img" -X POST -F data=@test.jpg
 // https://linecars.azurewebsites.net/img/xxx
+// https://linecars.azurewebsites.net/inquiry
 
-//const TMPDIR = 'c:\\temp\\'
-const TMPDIR = 'D:\\home\\site\\wwwroot\\uploads\\'
+const TMPDIR = 'c:\\temp\\'
+//const TMPDIR = 'D:\\home\\site\\wwwroot\\uploads\\'
 const PORT = process.env.PORT || 3000;
 const express = require('express');
 const app = express();
@@ -19,10 +20,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.get('/', function(req, res){
     res.render('test.ejs', 
         {title: 'Test Page' , 
-            content: 'this is test.18'});
+            content: 'this is test.19'});
+})
+app.get('/inquiry', function (req, res) {
+    res.send('Hello World!');
 })
 app.get('/input', function(req, res){
     res.render('input.ejs');
+})
+app.get('/select', function(req, res){
+    res.render('select.ejs');
 })
 app.post('/msg', function(req, res){
     console.log(req.body);
@@ -63,7 +70,8 @@ app.get('/img/:fname', function(req, res){
 });
 app.post('/img', upload.single('data'), function (req, res) {
     console.log(req.file);
-    res.end('success');
+//    res.end('success');
+    res.end(req.file.filename);
 });
 
 var server = app.listen(PORT, function(){
