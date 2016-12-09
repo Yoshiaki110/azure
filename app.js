@@ -2,6 +2,8 @@
 // https://linecars.azurewebsites.net/img/xxx
 // https://linecars.azurewebsites.net/inquiry
 
+const LINE_CHANNEL_ACCESS_TOKEN = '6q15N7MBLKyyi1SoC5KM8b038q8ODqoy2jxia6iBVN5/3u1vlpIwAtpt/DL8bdVh/BwAwm7KDdP4cIqQ/aZpZEptZnnpUt6+Vwx+P8bVQRkABTbbEOgb59uRwjFacL+lmoszTF4Ek9dKVxq/eDiiugdB04t89/1O/w1cDnyilFU=';
+
 //const TMPDIR = 'c:\\temp\\'
 const TMPDIR = 'D:\\home\\site\\wwwroot\\uploads\\'
 const PORT = process.env.PORT || 3000;
@@ -24,6 +26,35 @@ function chk(){
         console.log('  ' + key + ' ' + hash_list[key]);
     }
 }
+
+app.post('/webhook', function(req, res, next){
+    res.status(200).end();
+    for (var event of req.body.events){
+        console.log('event.type : ' + event.type);//ito
+        console.log('event.source.type : ' + event.source.type);//ito
+        if (event.type == 'message' && event.message.text == 'ÉnÉçÅ['){
+            var headers = {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + LINE_CHANNEL_ACCESS_TOKEN
+            }
+            var body = {
+                replyToken: event.replyToken,
+                messages: [{
+                    type: 'text',
+                    text: 'Ç±ÇÒÇ…ÇøÇÕÅ['
+                }]
+            }
+            var url = 'https://api.line.me/v2/bot/message/reply';
+            request({
+                url: url,
+                method: 'POST',
+                headers: headers,
+                body: body,
+                json: true
+            });
+        }        
+    }
+});
 
 app.get('/', function(req, res){
     console.log('<>get /');
