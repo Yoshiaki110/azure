@@ -2,7 +2,7 @@
 // http://localhost:3000/img/xxxxx
 
 //const TMPDIR = 'd:\\local\\temp\\'
-const TMPDIR = 'D:\\home\\site\\wwwroot\\uploads'
+const TMPDIR = 'D:\\home\\site\\wwwroot\\uploads\\'
 const PORT = process.env.PORT || 3000;
 const express = require('express');
 const app = express();
@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.get('/', function(req, res){
     res.render('test.ejs', 
         {title: 'Test Page' , 
-            content: 'this is test.14'});
+            content: 'this is test.15'});
 })
 app.get('/input', function(req, res){
     res.render('input.ejs');
