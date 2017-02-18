@@ -29,6 +29,7 @@ function chk(){
 
 app.post('/webhook', function(req, res){
     console.log('<>post /webhook');
+    console.log(req.body);
     res.status(200).end();
 });
 
